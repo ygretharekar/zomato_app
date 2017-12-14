@@ -1,0 +1,11 @@
+{
+    "presets": [
+        "node8",
+        "es2016",
+        "react",
+        "stage-3"
+    ],
+    "plugins": [
+        "react-hot-loader/babel"
+    ]
+}
