@@ -46,7 +46,10 @@
     "connect-mongo": "^2.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "express-history-api-fallback": "^2.2.1",
     "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
     "mongoose": "^4.13.7",
     "passport": "^0.4.0",
     "passport-github2": "^0.1.11",
@@ -58,6 +61,9 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid-v4": "^0.1.0",
+    "validator": "^9.2.0",
+    "zomato": "^1.1.0"
   }
 }
