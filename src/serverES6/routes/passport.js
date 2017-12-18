@@ -1,6 +1,6 @@
 import passport from 'passport';
-import githubStrategy from  'passport-github2';
-import twitterStrategy from 'passport-twitter';
+import GithubStrategy from  'passport-github2';
+import TwitterStrategy from 'passport-twitter';
 import jwt from 'jsonwebtoken';
 import secret from '../jwt-config';
 
@@ -12,47 +12,47 @@ const app = express.Router();
 const createToken = username => jwt.sign({user: username}, secret, {expiresIn: 60*60});
 
 passport.use(
-	new githubStrategy(
+	new GithubStrategy(
 		{
 			clientID: process.env.GH_CLIENT_ID,
 			clientSecret: process.env.GH_CLIENT_SECRET,
 			callbackURL: process.env.GH_CALLBACK_URL
+		},
+		(accessToken, refreshToken, profile, done) => {
+			User.findOne(
+				{
+					id: profile.id
+				},
+				(err, user) => {
+					if(err) return done(err);
+					
+					if(!user){
+						user = new User(
+							{
+								id: profile.id,
+								displayName: profile.displayName,
+								username: profile.username,
+								password: '',
+								githubID: profile.id,
+								twitterID: '',
+								userData: []
+							}
+						);
+						user.save(
+							err => {
+								if(err) console.log(err);
+								return done(err, user);
+							}
+						);
+					}
+					else{
+						console.log('user, ', user);
+						return done(err, user);
+					}
+				}
+			);
 		}
-	),
-	(accessToken, refreshToken, profile, done) => {
-		User.findOne(
-			{
-				id: profile.id
-			},
-			(err, user) => {
-				if(err) return done(err);
-
-				if(!user){
-					user = new User(
-						{
-							id: profile.id,
-							displayName: profile.displayName,
-							username: profile.username,
-							password: '',
-							githubID: profile.id,
-							twitterID: '',
-							userData: []
-						}
-					);
-					user.save(
-						err => {
-							if(err) console.log(err);
-							return done(err, user);
-						}
-					);
-				}
-				else{
-					console.log('user, ', user);
-					return done(err, user);
-				}
-			}
-		);
-	}
+	)
 );
 
 app.get(
@@ -73,47 +73,48 @@ app.get(
 
 
 passport.use(
-	new twitterStrategy(
+	new TwitterStrategy(
 		{
-			consumerKey: process.env.T_CON_ID,
+			consumerKey: process.env.T_CON_KEY,
 			consumerSecret: process.env.T_CON_SECRET,
-			callbackURL: '/auth/twitter/callback'
+			callbackURL: '/auth/twitter/callback',
+			passReqToCallback: true
+		},
+		(accessToken, refreshToken, profile, done) => {
+			User.findOne(
+				{
+					id: profile.id
+				},
+				(err, user) => {
+					if(err) return done(err);
+					
+					if(!user){
+						user = new User(
+							{
+								id: profile.id,
+								displayName: profile.displayName,
+								username: profile.username,
+								password: '',
+								githubID: '',
+								twitterID: profile.id,
+								userData: []
+							}
+						);
+						user.save(
+							err => {
+								if(err) console.log(err);
+								return done(err, user);
+							}
+						);
+					}
+					else{
+						console.log('user, ', user);
+						return done(err, user);
+					}
+				}
+			);
 		}
-	),
-	(accessToken, refreshToken, profile, done) => {
-		User.findOne(
-			{
-				id: profile.id
-			},
-			(err, user) => {
-				if(err) return done(err);
-
-				if(!user){
-					user = new User(
-						{
-							id: profile.id,
-							displayName: profile.displayName,
-							username: profile.username,
-							password: '',
-							githubID: '',
-							twitterID: profile.id,
-							userData: []
-						}
-					);
-					user.save(
-						err => {
-							if(err) console.log(err);
-							return done(err, user);
-						}
-					);
-				}
-				else{
-					console.log('user, ', user);
-					return done(err, user);
-				}
-			}
-		);
-	}
+	)
 );
 
 app.get(
@@ -153,4 +154,5 @@ app.get(
 	}
 );
 
+export default app;
 
