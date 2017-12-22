@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 // actions
 
@@ -41,7 +41,7 @@ export const logoutUser =
 			localStorage.removeItem('id_token');
 			localStorage.removeItem('user');
 			dispatch(receiveLogout());
-			browserHistory.push('/logout');
+			<Redirect to={'/logout'} />;
 		};
 
 //

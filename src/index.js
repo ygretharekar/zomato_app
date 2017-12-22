@@ -1,19 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router';
 
-class App extends React.Component {
-	render(){
-		return(
-			<div>
-				<h4>
-                    Hello World!!
-				</h4>
-			</div>
-		);
-	}
-}
+import ErrorBoundry from './containers/ErrorBoundry';
+import routes from './routes';
+import configureStore from './store/store';
+import App from './containers/App';
+import HomeComp from './containers/homeComp';
+
+export const store = configureStore();
 
 ReactDOM.render(
-	<App />,
+	<Provider store={store}>
+		<ErrorBoundry>
+			<Router>
+				<Switch>
+					<Route path='/' component={HomeComp}/>
+				</Switch>
+			</Router>
+		</ErrorBoundry>
+	</Provider>	,
 	document.getElementById('root')
 );

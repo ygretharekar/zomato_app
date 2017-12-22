@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
+import {Redirect} from 'react-router-dom';
 
 
 const HOST = 'http://127.0.0.1:3000';
@@ -73,7 +73,7 @@ export const checkAuth =
 					if(res.status == 201) {
 						const user = res.data;
 						dispatch(receiveLogin(user));
-						browserHistory.push('/');
+						<Redirect to={'/'} />;
 					}
 				}
 			)
@@ -96,7 +96,7 @@ info =>
 					if(res.status === 201) {
 						const user = res.data;
 						dispatch(receiveLogin(user));
-						browserHistory.push('/');
+						<Redirect to={'/'} />;
 					}
 				}
 			)
@@ -126,7 +126,7 @@ export const registerUser =
 					}
 				)
 				.then(
-					() => browserHistory.push('/')
+					() => <Redirect to={'/'} />
 				)
 				.catch(
 					err => {
