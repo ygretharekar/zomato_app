@@ -1,16 +1,15 @@
 import React from 'react';
 
-class HomeComp extends React.Component {
-
+class MainPage extends React.Component {
 	render(){
 		return(
 			<div>
 				<h1>
-					Hello world!!
+					Hello world
 				</h1>
 			</div>
 		);
 	}
 }
 
-export default HomeComp;
+export default MainPage;
