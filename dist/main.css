@@ -1,3 +1,7 @@
 body {
     background: rgb(77, 179, 247);
 }
+
+.nav-item{
+    font-weight: 600;
+}
