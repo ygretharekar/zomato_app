@@ -93,7 +93,6 @@ info =>
 					if(res.status === 201) {
 						const user = res.data;
 						dispatch(receiveLogin(user));
-						<Redirect to={'/'} />;
 					}
 				}
 			)
