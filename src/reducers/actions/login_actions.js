@@ -1,6 +1,4 @@
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
-
 
 const HOST = 'http://127.0.0.1:3000';
 
@@ -73,14 +71,13 @@ export const checkAuth =
 					if(res.status == 201) {
 						const user = res.data;
 						dispatch(receiveLogin(user));
-						<Redirect to={'/'} />;
 					}
 				}
 			)
 			.catch(
 				err => {
-					console.log('User unathorized', err.response.data);
-					dispatch(loginError(err.response.data));
+					console.log('User unathorized', err.response.data.error);
+					dispatch(loginError(err.response.data.error));
 				}
 			);
 //
@@ -135,5 +132,4 @@ export const registerUser =
 					}
 				);
 		};
-
 //

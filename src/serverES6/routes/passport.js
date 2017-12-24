@@ -77,8 +77,7 @@ passport.use(
 		{
 			consumerKey: process.env.T_CON_KEY,
 			consumerSecret: process.env.T_CON_SECRET,
-			callbackURL: '/auth/twitter/callback',
-			passReqToCallback: true
+			callbackURL: '/auth/twitter/callback'
 		},
 		(accessToken, refreshToken, profile, done) => {
 			User.findOne(
@@ -131,7 +130,7 @@ app.get(
 app.post(
 	'/verify',
 	(req, res) => {
-		console.log('user: ', req.user.username);
+		console.log('user: ', JSON.stringify(req.user));
 
 		if(req.isAuthenticated()){
 			res.status(201).send(

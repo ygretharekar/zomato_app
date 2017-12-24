@@ -1,7 +1,69 @@
 body {
-    background: rgb(77, 179, 247);
+    background: rgb(156, 77, 247);
 }
 
-.nav-item{
+.nav-item {
     font-weight: 600;
+}
+
+.form-control {
+    font-size: 100%;
+    border: 1px solid transparent;
+    box-shadow: inset 0 1px 1px transparent;
+}
+
+:focus {
+    outline: focus-ring-color auto 0;
+}
+
+.form-control:focus {
+    box-shadow: inset 0 1px 1px transparent, 0 0 8px transparent;
+}
+
+.form-label {
+    position: absolute;
+    pointer-events: none;
+    top: 57px;
+    font-size: 110%;
+    transition: .2s ease all;
+}
+
+.form-input:focus~.form-label,
+.form-input:valid~.form-label {
+    top: 37px;
+    font-size: 95%;
+}
+.pwd-label {
+    position: absolute;
+    pointer-events: none;
+    top: 115px;
+    font-size: 110%;
+    transition: .2s ease all;
+}
+
+.form-input:focus~.pwd-label,
+.form-input:valid~.pwd-label {
+    top: 93px;
+    font-size: 95%;
+}
+
+.login-page {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 25%;
+    margin: 0 auto;
+    transform: translate(-50%, -50%);
+}
+
+.login-page .form-control {
+    background-color: transparent;
+    border-bottom: 2px solid #32797c;
+    border-radius: 0;
+    padding-left: 0;
+}
+
+.login-page .form-control:focus {
+    border-color: transparent;
+    border-bottom: 2px solid #9c9e9f;
 }
