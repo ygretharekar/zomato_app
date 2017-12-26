@@ -1,6 +1,6 @@
 import axios from 'axios';
-
 const HOST = 'http://127.0.0.1:3000';
+
 
 // actions
 
@@ -10,7 +10,6 @@ const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 const NEW_SIGNUP = 'NEW_SIGNUP';
 const REGISTERATION_ERROR = 'REGISTERATION_ERROR';
-
 
 // action creators
 
@@ -50,6 +49,7 @@ export const newSignup = () => (
 		isAuthenticated: false
 	}
 );
+
 export const registerationError = err => (
 	{
 		type: REGISTERATION_ERROR,
@@ -76,7 +76,7 @@ export const checkAuth =
 			)
 			.catch(
 				err => {
-					console.log('User unathorized', err.response.data.error);
+					console.log('User not Athorized', err.response.data.error);
 					dispatch(loginError(err.response.data.error));
 				}
 			);
@@ -87,17 +87,20 @@ info =>
 	dispatch => {
 		dispatch(requestLogin(info));
 		return axios
-			.post(`${HOST}/sessions/create`, info)
+			.post(`${HOST}/session/create`, info)
 			.then(
 				res => {
 					if(res.status === 201) {
+
 						const user = res.data;
+						console.log('Logged In!!!');
 						dispatch(receiveLogin(user));
-					}
+					}					
 				}
 			)
 			.catch(
 				err => {
+					console.log(JSON.stringify(err.response.data));
 					console.log('Authentication Failed', err.response.data);
 					dispatch(loginError(err.response.data));
 				}
@@ -120,9 +123,6 @@ export const registerUser =
 						};
 						dispatch(receiveLogin(user));
 					}
-				)
-				.then(
-					() => <Redirect to={'/'} />
 				)
 				.catch(
 					err => {

@@ -21,14 +21,14 @@ const authReducer = (state = initialState, action) => {
 		return {
 			...state,
 			isFetching: true,
-			isAuthenticated: true,
+			isAuthenticated: false,
 			user: action.user	
 		};
 	
 	case 'LOGIN_SUCCESS':
 		return {
 			...state,
-			isFetching: true,
+			isFetching: false,
 			isAuthenticated: true,
 			loginError: '',
 			registrationError: '',
@@ -49,7 +49,7 @@ const authReducer = (state = initialState, action) => {
 	case 'LOGOUT_SUCCESS':
 		return {
 			...state,
-			isFetching: true,
+			isFetching: false,
 			isAuthenticated:false,
 			user: '',
 			userID: '',
@@ -60,7 +60,7 @@ const authReducer = (state = initialState, action) => {
 		return {
 			...state,
 			isFetching: true,
-			isAuthenticated: true
+			isAuthenticated: false
 		};
 	
 	case 'REGISTERATION_ERROR':

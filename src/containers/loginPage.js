@@ -1,71 +1,83 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
 
-import { loginUser } from '../reducers/actions/login_actions';
+import LoginComp from './loginComp';
+import SignupComp from './signupComp';
+import LoadingComp from '../components/loadingAni';
 
 class Login extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			email: '',
-			password: ''
+			login: 'btn-info',
+			signup: 'btn-secondary'
 		};
 
-		this.handleInput = this.handleInput.bind(this);
-		this.submitLogin = this.submitLogin.bind(this);
-
+		this.changeTab = this.changeTab.bind(this);
 	}
 
-	handleInput(e){
+	changeTab(){
 		this.setState(
-			{
-				[e.target.name]: e.target.value
-			}
+			prevState => (
+				{
+					login: prevState.signup,
+					signup: prevState.login
+				}
+			)
 		);
-	}
-
-	submitLogin(){
-		const { email, password } = this.state;
-
-		if(email !== '' && password !== ''){
-			const creds = { email: email.trim(), password: password.trim() };
-
-			this.props.loginUser(creds);
-		}
-
 	}
 
 	render(){
 		return(
-			<div className='container login-page'>
-				<div>
-					<h1>login</h1>
-					<form>
-						<div className='form-group'>
-							<input 
-								type='email' 
-								name='email'
-								placeholder=''
-								className='form-control form-input'
-								required 
-							/>
-							<label className='form-label'>username</label>
+			<div>
+				<nav className='navbar'>
+					<Link 
+						to='/'
+						className='nav-link'
+					>
+						Back
+					</Link>		
+				</nav>
+				<div className = 'container login-page'> 
+					{
+						!this.props.failed && 
+						<div>
+							<div className='btn-group d-flex justify-content-center'>
+								<button
+									type='button'
+									onClick={this.changeTab}
+									className={`btn ${this.state.login}`}>LogIn</button>
+								<button
+									type='button'
+									onClick={this.changeTab}
+									className={`btn ${this.state.signup}`}>SignUp</button>
+							</div>
+							{
+								(
+									() => {
+										if (this.state.login == 'btn-info') {
+
+											if (this.props.loading) return <LoadingComp/>;
+											
+											return <LoginComp/>;
+
+										} else if (this.state.signup == 'btn-info') {
+											if (this.props.loading) 
+												return <LoadingComp/>;
+											return <SignupComp/>;
+										} else 
+											return <h1>Nothing..!!</h1>;
+									}
+								)()
+							}
 						</div>
-						<div className='form-group'>
-							<input 
-								type='password'
-								name='password' 
-								placeholder=''
-								className='form-control form-input' 
-								required 
-							/>
-							<label className='pwd-label'>password</label>
-						</div>
-					</form>
-					<button className="btn btn-block btn-outline-info">Login</button>
-					<a href='/auth/twitter' className='btn btn-block btn-outline-primary'>Login with twiiter</a>
-					<a href='/auth/github' className='btn btn-block btn-outline-secondary'>Login with github</a>
+					}
+					{
+						this.props.failed &&
+						<LoginComp />
+					}
 				</div>
 			</div>
 		);
@@ -74,13 +86,14 @@ class Login extends React.Component {
 
 const mapStateToProps = state => (
 	{
-		errorMessage: state.auth.loginError
+		loading: state.auth.isFetching,
+		failed: state.auth.loginError 
 	}
 );
 
 Login.propTypes = {
-	loginUser: PropTypes.func.isRequired,
-	errorMessage: PropTypes.string.isRequired
+	loading: PropTypes.bool.isRequired,
+	failed: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps)(Login);

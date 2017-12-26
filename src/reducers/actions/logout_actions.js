@@ -1,6 +1,6 @@
-import { Redirect } from 'react-router-dom';
 
 // actions
+
 
 const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -41,7 +41,6 @@ export const logoutUser =
 			localStorage.removeItem('id_token');
 			localStorage.removeItem('user');
 			dispatch(receiveLogout());
-			<Redirect to={'/logout'} />;
 		};
 
 //

@@ -109,6 +109,7 @@ app.post(
 			(err, user) => {
 
 				if(user && bcrypt.compareSync(password, user.password)) {
+					//console.log(JSON.stringify(user));
 					res.status(201).send(
 						{
 							id_token: createToken(user.username),
@@ -120,6 +121,10 @@ app.post(
 
 				else if(!user) {
 					res.status(401).send('invalid login attemt');
+				}
+
+				else {
+					res.status(401).send('Password Incorrect');
 				}
 			}
 		);
