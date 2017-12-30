@@ -63,7 +63,7 @@ class LoginComp extends React.Component {
 							onChange={this.handleInput}
 							required 
 						/>
-						<label className='form-label'>username</label>
+						<label className='form-label'>e-mail</label>
 					</div>
 					<div className='form-group'>
 						<input 

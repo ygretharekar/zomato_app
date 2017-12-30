@@ -19,6 +19,7 @@ const app = express.Router();
 
 const createToken = username => jwt.sign({user: username}, secret, {expiresIn: 60*60});
 
+
 app.post(
 	'/register',
 	(req, res, next) => {
@@ -62,6 +63,8 @@ app.post(
 							}
 						);
 					}
+
+					
 					else if( user.password === '' ){
 						const passwordDigest = bcrypt.hashSync(user.password, 10);
 						user.password = passwordDigest;

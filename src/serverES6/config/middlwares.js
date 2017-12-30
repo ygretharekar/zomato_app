@@ -23,6 +23,8 @@ export default app => {
 	const string  = process.env.COOKIE_SECRET;
 	app.use(cookieParser(string));
 
+
+	
 	app.use(session(
 		{
 			secret: 'some secret',
@@ -45,6 +47,7 @@ export default app => {
 	//app.use(apiRoutes);
 	app.use(authRoutes);
 	app.use(passportRoutes);
+	app.use(apiRoutes);
 
 	app.use(fallback(path.join(__dirname, '../../../dist/index.html')));
 

@@ -1,5 +1,6 @@
 body {
-    background: rgb(156, 77, 247);
+    background: rgb(39, 39, 39);
+    color: #cb202d;
 }
 
 .nav-item {
@@ -59,6 +60,24 @@ body {
     padding: 20px 10px 20px 10px;
 }
 
+.search-name {
+    font-size: 30px;
+}
+
+.search-page {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 25%;
+    margin: 0 auto;
+    transform: translate(-50%, -50%);
+    color: #f3f3f3;
+}
+
+#searchBox {
+    border: #f3f3f3 solid 3px;
+}
+
 .login-page .form-control {
     background-color: transparent;
     border-bottom: 2px solid #32797c;
@@ -108,11 +127,38 @@ body {
     animation: spin 2s linear infinite;
 }
 
+.result {
+    animation: results 0.5s ease-in backwards;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes searchbox {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(0, -625%);
+    }
+    100% {
+        transform: translate(-140%, -625%);
+    }
+}
+
+@keyframes results {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
     }
 }

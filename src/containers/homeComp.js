@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Header from './header';
+import SearchComp from '../components/searchComp';
 
 class HomeComp extends React.Component {
 
@@ -7,6 +9,7 @@ class HomeComp extends React.Component {
 		return(
 			<div>
 				<Header />
+				<SearchComp />
 			</div>
 		);
 	}

@@ -7,10 +7,10 @@ const initialState = {
 	userID: '',
 	registrationError: '',
 	loginError:'',
+	id_token:'',
 	isFetching:false,
 	isAuthenticated:false
 };
-
 
 //reducer
 
